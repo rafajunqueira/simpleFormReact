@@ -1,9 +1,9 @@
-import Form from "./Form";
+import UserForm from "./Form";
 
 function App() {
   return (
     <div className="App">
-      <Form> </Form>
+      <UserForm> </UserForm>
     </div>
   );
 }

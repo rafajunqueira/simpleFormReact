@@ -2,17 +2,51 @@ import React, { useState } from "react";
 import "./Form.css";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-  
+export default (prop) => {
+  const [name, setName] = useState({
+    name: "",
+  });
+  const [email, setEmail] = useState({
+    email: "",
+  });
+  const [login, setLogin] = useState({
+    login: "",
+  });
+  const [password, setPassword] = useState({
+    password: "",
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(`Nome: ${name} \nEmail: ${email}\nLogin: ${login}\nSenha: ${password}`);
+    const newUser = [
+      {
+        name: { name },
+        email: { email },
+        login: { login },
+        password: { password },
+      },
+    ];
+
+    const newDiv = document.createElement("div");
+    const newBtn = document.createElement("button");
+    newBtn.type = "submit";
+    newBtn.className = "center";
+    newBtn.innerHTML = "Confirmar";
+    newBtn.id = "user-confirm-data";
+    newDiv.id = "inserted-data";
+
+    newDiv.innerHTML = `Dados inseridos: ${name}, ${email}, ${login}, ${password}`;
+
+    document.getElementById("root").append(newDiv);
+    document.getElementById("root").append(newBtn);
+
+    // console.log(
+    //   `Nome: ${name} \nEmail: ${email}\nLogin: ${login}\nSenha: ${password}`
+    // );
+    console.log(JSON.stringify(newUser, undefined, 2));
   };
+
   return (
     <div id="container" className="center">
       <div id="titulo">
@@ -21,13 +55,14 @@ export default () => {
       <form id="form" onSubmit={handleSubmit}>
         <label> Nome Completo </label>
         <input
+          autoFocus
           required
           className="input jump"
           type="text"
           name="firstname"
           size="15"
           onChange={(e) => setName(e.target.value)}
-          value={name}
+          value={prop.name}
         />
         <label> Email: </label>
         <input
@@ -37,7 +72,7 @@ export default () => {
           name="email"
           size="15"
           onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          value={prop.email}
         />
         <label> Login: </label>
         <input
@@ -47,7 +82,7 @@ export default () => {
           name="login"
           size="15"
           onChange={(e) => setLogin(e.target.value)}
-          value={login}
+          value={prop.login}
         />
         <label> Senha: </label>
         <input
@@ -57,7 +92,7 @@ export default () => {
           name="password"
           size="15"
           onChange={(e) => setPassword(e.target.value)}
-          value={password}
+          value={prop.password}
         />
         <button type="submit">Enviar</button>
       </form>
